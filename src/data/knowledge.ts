@@ -1,0 +1,238 @@
+import type { KnowledgeNote, Source } from "@/lib/types";
+
+/**
+ * Curated knowledge notes for retrieval. The AI guide receives the best-matching notes
+ * (plus object fact sheets) with each question so answers stay grounded and citable.
+ */
+
+const nasa = (title: string, path: string): Source => ({ title, url: `https://science.nasa.gov/${path}`, publisher: "NASA" });
+const spaceplace = (title: string, path: string): Source => ({ title, url: `https://spaceplace.nasa.gov/${path}`, publisher: "NASA" });
+const esa = (title: string, url: string): Source => ({ title, url, publisher: "ESA" });
+const jpl = (title: string, url: string): Source => ({ title, url, publisher: "JPL" });
+
+export const KNOWLEDGE: KnowledgeNote[] = [
+  {
+    id: "saturn-rings",
+    title: "Saturn's rings",
+    tags: ["saturn", "rings", "ice", "cassini"],
+    text: "Saturn's main rings are made of billions of chunks of water ice, from dust grains to house-sized boulders. They are up to 282,000 km wide but typically only about 10 m thick. Cassini data suggest the rings may be relatively young (perhaps a few hundred million years) and are slowly 'raining' onto Saturn, though their age is still debated. Leading ideas for their origin include a moon or comet torn apart by Saturn's tides. Every ~13–15 years the rings appear edge-on from Earth and nearly vanish in small telescopes (most recently in March 2025).",
+    source: nasa("Saturn", "saturn/"),
+  },
+  {
+    id: "seasons",
+    title: "Why Earth has seasons",
+    tags: ["seasons", "earth", "tilt", "axis", "summer", "winter", "solstice", "equinox"],
+    text: "Seasons are caused by Earth's 23.4° axial tilt, not its distance from the Sun. Earth is actually closest to the Sun (perihelion) in early January. When a hemisphere tilts toward the Sun, sunlight arrives more directly and days are longer, so it's summer there. The hemispheres have opposite seasons.",
+    source: spaceplace("What causes the seasons?", "seasons/en/"),
+  },
+  {
+    id: "moon-phases",
+    title: "Moon phases",
+    tags: ["moon", "phases", "full", "new", "crescent", "gibbous", "lunar"],
+    text: "Half the Moon is always lit by the Sun. As the Moon orbits Earth every ~29.5 days (synodic month), we see different portions of the lit half: new, waxing crescent, first quarter, waxing gibbous, full, waning gibbous, last quarter, waning crescent. Phases are not caused by Earth's shadow; that only happens during lunar eclipses.",
+    source: nasa("Moon Phases", "moon/moon-phases/"),
+  },
+  {
+    id: "tidal-locking",
+    title: "Tidal locking",
+    tags: ["moon", "tidal", "locking", "far side", "dark side", "rotation"],
+    text: "The Moon rotates once per orbit (~27.3 days), so the same hemisphere always faces Earth. The far side receives as much sunlight as the near side; 'dark side' is a misnomer. Many moons in the solar system are tidally locked to their planets, and Pluto and Charon are locked to each other.",
+    source: nasa("Earth's Moon", "moon/"),
+  },
+  {
+    id: "tides",
+    title: "Ocean tides",
+    tags: ["tides", "moon", "ocean", "gravity", "spring", "neap"],
+    text: "Tides arise because the Moon's gravity pulls more strongly on the near side of Earth than the far side, stretching the oceans into two bulges. Earth rotates through them, giving most places two high tides per day. The Sun's effect is about 46% of the Moon's; when aligned (new/full moon) they produce spring tides, at quarter moons neap tides.",
+    source: nasa("Tides", "moon/tides/"),
+  },
+  {
+    id: "black-holes",
+    title: "Black holes",
+    tags: ["black hole", "event horizon", "singularity", "gravity", "sagittarius", "m87", "ligo"],
+    text: "A black hole is a region where gravity is so strong that nothing, not even light, can escape past the event horizon. Stellar-mass black holes form when massive stars collapse; supermassive ones (millions to billions of solar masses) sit at galaxy centers, including Sagittarius A* (~4 million solar masses) in the Milky Way. LIGO detected gravitational waves from merging black holes in 2015. The Event Horizon Telescope imaged M87* (2019) and Sgr A* (2022). What happens at the center is unknown and requires a theory of quantum gravity.",
+    source: nasa("Black Holes", "universe/black-holes/"),
+  },
+  {
+    id: "star-formation",
+    title: "How stars form",
+    tags: ["star", "stars", "formation", "nebula", "protostar", "fusion", "born", "birth"],
+    text: "Stars form when dense regions of cold molecular clouds collapse under gravity. The collapsing cloud spins up and flattens into a disk with a protostar at the center. When the core reaches about 10 million °C, hydrogen fusion begins and the star joins the main sequence. JWST images star-forming regions like the Pillars of Creation in infrared, seeing through the dust.",
+    source: nasa("Stars", "universe/stars/"),
+  },
+  {
+    id: "star-death",
+    title: "How stars die",
+    tags: ["star", "supernova", "white dwarf", "neutron star", "red giant", "death"],
+    text: "Sun-like stars swell into red giants, shed their outer layers as planetary nebulae and leave white dwarfs. Stars above ~8 solar masses end in core-collapse supernovae, leaving neutron stars or black holes. Supernovae and neutron-star mergers spread heavy elements like iron and gold. The Sun has about 5 billion years of main-sequence life left.",
+    source: nasa("Stars", "universe/stars/"),
+  },
+  {
+    id: "pluto-status",
+    title: "Why Pluto is a dwarf planet",
+    tags: ["pluto", "dwarf", "planet", "iau", "definition", "eris", "2006"],
+    text: "In 2006 the International Astronomical Union defined a planet as a body that orbits the Sun, is massive enough to be round, and has cleared its orbital neighborhood. Pluto meets the first two but not the third, so it was classified as a dwarf planet. The discovery of Eris (2005), similar in size to Pluto, prompted the decision. Some planetary scientists still disagree with the definition.",
+    source: { title: "IAU: Pluto and the solar system", url: "https://www.iau.org/public/themes/pluto/", publisher: "IAU" },
+  },
+  {
+    id: "europa-life",
+    title: "Life on Europa?",
+    tags: ["europa", "ocean", "life", "jupiter", "clipper", "habitability"],
+    text: "Europa likely has a salty liquid-water ocean beneath an ice shell perhaps 15–25 km thick, with more water than Earth's oceans. Water, chemistry and energy may make it habitable, but no life has been detected. NASA's Europa Clipper, launched October 2024, will arrive in 2030 to assess its habitability.",
+    source: nasa("Europa", "jupiter/jupiter-moons/europa/"),
+  },
+  {
+    id: "enceladus-plumes",
+    title: "Enceladus plumes",
+    tags: ["enceladus", "plumes", "geysers", "ocean", "saturn", "cassini", "life"],
+    text: "Cassini discovered plumes of water vapor and ice erupting from cracks ('tiger stripes') near Enceladus's south pole, fed by a global subsurface ocean. Cassini detected salts, silica nanoparticles hinting at hydrothermal activity, organic molecules and phosphates in the plume material.",
+    source: nasa("Enceladus", "saturn/moons/enceladus/"),
+  },
+  {
+    id: "mars-life",
+    title: "Life on Mars?",
+    tags: ["mars", "life", "water", "perseverance", "curiosity", "biosignature"],
+    text: "Mars once had rivers, lakes and possibly a thicker atmosphere. Curiosity found that Gale Crater hosted a habitable lake. Perseverance is collecting samples in Jezero Crater, an ancient river delta; in 2024 it found 'Cheyava Falls', a rock with features that could be potential biosignatures but could also have non-biological explanations. No confirmed evidence of life on Mars exists.",
+    source: nasa("Mars", "mars/"),
+  },
+  {
+    id: "mars-red",
+    title: "Why Mars is red",
+    tags: ["mars", "red", "rust", "iron oxide", "color"],
+    text: "Mars looks red because its surface dust is rich in iron oxides — essentially rust. Fine dust lofted into the atmosphere also tints the sky butterscotch by day; Martian sunsets look bluish.",
+    source: nasa("Mars", "mars/"),
+  },
+  {
+    id: "venus-greenhouse",
+    title: "Venus's runaway greenhouse",
+    tags: ["venus", "greenhouse", "hot", "atmosphere", "carbon dioxide", "hottest"],
+    text: "Venus is the hottest planet (~464 °C) even though Mercury is closer to the Sun, because its dense CO₂ atmosphere (92 times Earth's surface pressure) traps heat in a runaway greenhouse effect. Venus may once have had water, but it was lost to space as the planet heated.",
+    source: nasa("Venus", "venus/"),
+  },
+  {
+    id: "jupiter-red-spot",
+    title: "The Great Red Spot",
+    tags: ["jupiter", "great red spot", "storm"],
+    text: "Jupiter's Great Red Spot is a giant anticyclonic storm wider than Earth, observed for at least 150 years and possibly since the 1600s. It has been shrinking over the past century. Juno found its roots extend roughly 300–500 km deep.",
+    source: nasa("Jupiter", "jupiter/"),
+  },
+  {
+    id: "jupiter-star",
+    title: "Could Jupiter become a star?",
+    tags: ["jupiter", "star", "brown dwarf", "fusion", "mass"],
+    text: "No. To sustain hydrogen fusion an object needs about 75–80 times Jupiter's mass. Brown dwarfs (~13–80 Jupiter masses) can briefly fuse deuterium. Jupiter does radiate more heat than it receives from the Sun, left over from its formation and slow contraction.",
+    source: nasa("Jupiter", "jupiter/"),
+  },
+  {
+    id: "uranus-tilt",
+    title: "Uranus's sideways tilt",
+    tags: ["uranus", "tilt", "sideways", "collision", "seasons"],
+    text: "Uranus's axis is tilted about 98°, likely from one or more giant impacts early in its history, though the exact cause isn't known. Each pole gets about 42 years of daylight then 42 of darkness. Voyager 2 is the only spacecraft to visit (1986); a Uranus orbiter and probe was the top flagship priority of the 2022 planetary decadal survey.",
+    source: nasa("Uranus", "uranus/"),
+  },
+  {
+    id: "neptune-discovery",
+    title: "Discovering Neptune by math",
+    tags: ["neptune", "discovery", "le verrier", "adams", "galle", "prediction"],
+    text: "Irregularities in Uranus's orbit led Urbain Le Verrier (and independently John Couch Adams) to predict another planet. Johann Galle found Neptune in 1846 within about 1° of Le Verrier's predicted position.",
+    source: nasa("Neptune", "neptune/"),
+  },
+  {
+    id: "sun-energy",
+    title: "How the Sun makes energy",
+    tags: ["sun", "fusion", "energy", "hydrogen", "helium", "core"],
+    text: "In the Sun's core (~15 million °C) hydrogen nuclei fuse into helium via the proton–proton chain, converting about 4 million tonnes of mass into energy each second (E = mc²). Energy takes tens of thousands of years or more to reach the surface through the radiative and convective zones, then 8 minutes 20 seconds to reach Earth as light.",
+    source: nasa("The Sun", "sun/"),
+  },
+  {
+    id: "sun-color",
+    title: "What color is the Sun?",
+    tags: ["sun", "color", "white", "yellow"],
+    text: "The Sun emits light across all visible colors, peaking in blue-green, and appears white from space. From the ground it looks yellowish because the atmosphere scatters away some blue light (which also makes the sky blue), and redder near sunrise and sunset.",
+    source: nasa("The Sun", "sun/"),
+  },
+  {
+    id: "asteroid-belt",
+    title: "The asteroid belt",
+    tags: ["asteroid", "belt", "ceres", "vesta", "main belt"],
+    text: "The main asteroid belt lies between Mars and Jupiter, roughly 2.2–3.2 AU from the Sun. Its total mass is only about 3% of the Moon's, and about a quarter of that is Ceres. Asteroids are typically millions of km apart, so spacecraft cross the belt safely. Jupiter's gravity prevented them from forming a planet.",
+    source: nasa("Asteroids", "solar-system/asteroids/"),
+  },
+  {
+    id: "kuiper-belt",
+    title: "The Kuiper Belt and Oort Cloud",
+    tags: ["kuiper", "belt", "oort", "comets", "pluto", "arrokoth", "trans-neptunian"],
+    text: "The Kuiper Belt is a donut-shaped region of icy bodies beyond Neptune, about 30–50 AU from the Sun, home to Pluto, Haumea, Makemake and Arrokoth. Long-period comets are thought to come from the Oort Cloud, a hypothesized spherical shell extending perhaps 2,000–100,000 AU, which has never been directly observed.",
+    source: nasa("Kuiper Belt", "solar-system/kuiper-belt/"),
+  },
+  {
+    id: "light-year",
+    title: "Light-years and distances",
+    tags: ["light year", "distance", "au", "parsec", "speed of light", "proxima"],
+    text: "Light travels about 300,000 km per second. One astronomical unit (AU), Earth's average distance from the Sun, is about 149.6 million km. A light-year is about 9.46 trillion km. The nearest star beyond the Sun, Proxima Centauri, is about 4.24 light-years away; Voyager 1 would take over 70,000 years to travel that far.",
+    source: nasa("Light-years", "universe/"),
+  },
+  {
+    id: "voyager",
+    title: "Voyager in interstellar space",
+    tags: ["voyager", "interstellar", "heliopause", "golden record"],
+    text: "Voyager 1 crossed the heliopause into interstellar space in August 2012, Voyager 2 in November 2018. Both carry the Golden Record. They run on decaying plutonium power supplies, so NASA has been turning off instruments to extend their lives; communication may end around the late 2020s or early 2030s.",
+    source: jpl("Voyager mission", "https://science.nasa.gov/mission/voyager/"),
+  },
+  {
+    id: "big-bang",
+    title: "The Big Bang and the age of the universe",
+    tags: ["big bang", "universe", "age", "expansion", "cosmic microwave background", "dark energy"],
+    text: "The universe began expanding from a hot, dense state about 13.8 billion years ago. Evidence includes the cosmic microwave background, the expansion of galaxies and the abundance of light elements. The expansion is accelerating, attributed to 'dark energy', whose nature is unknown. There's also an unresolved 'Hubble tension' between different measurements of the expansion rate.",
+    source: esa("Planck and the cosmic microwave background", "https://www.esa.int/Science_Exploration/Space_Science/Planck"),
+  },
+  {
+    id: "dark-matter",
+    title: "Dark matter",
+    tags: ["dark matter", "galaxy", "rotation", "unknown"],
+    text: "Galaxies rotate too fast and galaxy clusters bend light too strongly to be explained by visible matter alone. Scientists infer an invisible 'dark matter' making up about 85% of the matter in the universe. What it actually is remains unknown; no dark-matter particle has been detected directly.",
+    source: nasa("Dark Matter", "universe/dark-matter-dark-energy/"),
+  },
+  {
+    id: "exoplanets",
+    title: "Exoplanets",
+    tags: ["exoplanet", "planets", "kepler", "tess", "jwst", "habitable zone", "alien"],
+    text: "Over 6,000 planets beyond our solar system have been confirmed (NASA Exoplanet Archive, 2025). Most are found by the transit method (Kepler, TESS) or radial velocity. JWST analyzes exoplanet atmospheres. No confirmed signs of life have been found on any exoplanet.",
+    source: nasa("Exoplanets", "exoplanets/"),
+  },
+  {
+    id: "iss",
+    title: "Seeing the ISS",
+    tags: ["iss", "space station", "see", "visible", "pass"],
+    text: "The International Space Station orbits about 400 km up, circling Earth every ~92 minutes. It's visible to the naked eye as a bright, steady, fast-moving point of light (no blinking) shortly after sunset or before sunrise, when it's sunlit but the sky is dark.",
+    source: { title: "Spot the Station", url: "https://spotthestation.nasa.gov/", publisher: "NASA" },
+  },
+  {
+    id: "meteor-showers",
+    title: "Meteor showers",
+    tags: ["meteor", "shower", "perseids", "geminids", "shooting star", "comet"],
+    text: "Meteor showers occur when Earth passes through debris left by comets (or an asteroid, for the Geminids). The particles burn up in the atmosphere at 50–70 km/s. Best viewing is after midnight, away from city lights, letting your eyes adapt for 20+ minutes. Moonlight can wash out fainter meteors.",
+    source: nasa("Meteors and Meteorites", "solar-system/meteors-meteorites/"),
+  },
+  {
+    id: "eclipses",
+    title: "Eclipses",
+    tags: ["eclipse", "solar", "lunar", "totality", "shadow"],
+    text: "A solar eclipse happens when the Moon passes between the Sun and Earth; a lunar eclipse when Earth's shadow falls on the Moon. They don't happen every month because the Moon's orbit is tilted about 5° to Earth's. Never look at a partial solar eclipse without certified eclipse glasses. A total solar eclipse crosses Spain and Iceland on August 12, 2026.",
+    source: nasa("Eclipses", "eclipses/"),
+  },
+  {
+    id: "jpl-horizons",
+    title: "How planet positions are calculated",
+    tags: ["ephemeris", "horizons", "positions", "orbit", "calculation"],
+    text: "Precise planetary positions come from numerical ephemerides like JPL's DE440, available through JPL Horizons. Orbital's explorer uses the open-source astronomy-engine library, accurate to about an arcminute for planets, and simplified circular orbits for moons.",
+    source: jpl("JPL Horizons", "https://ssd.jpl.nasa.gov/horizons/"),
+  },
+  {
+    id: "artemis",
+    title: "The Artemis program",
+    tags: ["artemis", "moon", "orion", "sls", "astronauts", "return"],
+    text: "NASA's Artemis program aims to return humans to the Moon and build toward Mars. Artemis I flew uncrewed around the Moon in 2022. Artemis II, a crewed lunar flyby, flew in April 2026. Later missions aim to land astronauts near the lunar south pole; their schedules and designs have changed several times and should be checked on nasa.gov.",
+    source: { title: "Artemis", url: "https://www.nasa.gov/humans-in-space/artemis/", publisher: "NASA" },
+  },
+];

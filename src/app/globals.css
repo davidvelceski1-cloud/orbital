@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Design tokens ---------- */
+:root {
+  --bg: #fafbff;
+  --surface: #ffffff;
+  --surface-2: #f5f7fd;
+  --border: #eef0f7;
+  --border-strong: #e2e6f0;
+  --primary: #6366f1;
+  --primary-strong: #4f46e5;
+  --primary-soft: #eef2ff;
+  --sky: #38bdf8;
+  --pink: #f9a8d4;
+  --peach: #fdba74;
+  --ink: #0f172a;
+  --body: #475569;
+  /* #64748B keeps small muted text at WCAG AA on white; #94A3B8 is for icons/decoration only */
+  --muted: #64748b;
+  --faint: #94a3b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --gradient: linear-gradient(135deg, #e0e7ff 0%, #e0f2fe 50%, #fce7f3 100%);
+  --gradient-strong: linear-gradient(135deg, #6366f1 0%, #38bdf8 55%, #f9a8d4 100%);
+  --gradient-button: linear-gradient(135deg, #6366f1 0%, #7c83f7 50%, #38bdf8 100%);
+  --glass: rgba(255, 255, 255, 0.72);
+  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -8px rgba(15, 23, 42, 0.08);
+  --shadow-lift: 0 2px 4px rgba(15, 23, 42, 0.04), 0 16px 40px -12px rgba(99, 102, 241, 0.18);
+  --canvas-top: #f4f6ff;
+  --canvas-bottom: #fdf4fa;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0a1020;
+  --surface: #10182b;
+  --surface-2: #151f36;
+  --border: #1d2840;
+  --border-strong: #27344f;
+  --primary: #818cf8;
+  --primary-strong: #a5b4fc;
+  --primary-soft: #1e2350;
+  --ink: #f1f5f9;
+  --body: #cbd5e1;
+  --muted: #94a3b8;
+  --faint: #64748b;
+  --gradient: linear-gradient(135deg, #1b2150 0%, #10284a 50%, #3a1838 100%);
+  --gradient-strong: linear-gradient(135deg, #818cf8 0%, #38bdf8 55%, #f9a8d4 100%);
+  --gradient-button: linear-gradient(135deg, #6366f1 0%, #7c83f7 50%, #38bdf8 100%);
+  --glass: rgba(16, 24, 43, 0.72);
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -8px rgba(0, 0, 0, 0.5);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.3), 0 16px 40px -12px rgba(129, 140, 248, 0.25);
+  --canvas-top: #0c1430;
+  --canvas-bottom: #1a1030;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-soft: var(--primary-soft);
+  --color-sky: var(--sky);
+  --color-pink: var(--pink);
+  --color-peach: var(--peach);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 20px;
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+}
+
+/* ---------- Base ---------- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.15;
+}
+::selection {
+  background: color-mix(in srgb, var(--primary) 22%, transparent);
+}
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* ---------- Utilities ---------- */
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+@utility bg-signature {
+  background: var(--gradient);
+}
+@utility bg-signature-strong {
+  background: var(--gradient-strong);
+}
+@utility text-gradient {
+  background: var(--gradient-strong);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility glass {
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+}
+@utility card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface) 70%, transparent), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+/* Landing preview orbits */
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Chat markdown */
+.prose-orbital p {
+  margin: 0 0 0.75em;
+}
+.prose-orbital p:last-child {
+  margin-bottom: 0;
+}
+.prose-orbital strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.prose-orbital ul,
+.prose-orbital ol {
+  margin: 0.25em 0 0.75em;
+  padding-left: 1.25em;
+}
+.prose-orbital ul {
+  list-style: disc;
+}
+.prose-orbital ol {
+  list-style: decimal;
+}
+.prose-orbital li {
+  margin: 0.2em 0;
+}
+.prose-orbital table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5em 0 0.75em;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+.prose-orbital th,
+.prose-orbital td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.4em 0.5em;
+  text-align: left;
+}
+.prose-orbital th {
+  color: var(--ink);
+  font-weight: 600;
+}
+.prose-orbital code {
+  background: var(--surface-2);
+  border-radius: 6px;
+  padding: 0.1em 0.35em;
+  font-size: 0.875em;
+}
+.prose-orbital a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Reduced motion: honored globally (the app also exposes a manual toggle) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
