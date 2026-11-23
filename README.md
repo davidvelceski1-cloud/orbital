@@ -4,6 +4,20 @@ An AI-powered, interactive learning platform for space and our solar system.
 Explore a live 3D solar system, ask an AI guide anything, compare worlds to scale,
 take bite-sized courses, and see what's in your sky tonight.
 
+**Live site:** https://orbital-livid-ten.vercel.app
+
+![Orbital landing page](docs/screenshots/landing.png)
+
+## Screenshots
+
+| 3D Explorer | Compare |
+|---|---|
+| ![Live 3D solar system explorer with time controls](docs/screenshots/explore.png) | ![Side-by-side true-scale comparison of Earth and Jupiter](docs/screenshots/compare.png) |
+| **Tonight's Sky** | **Learn** |
+| ![Visible planets and Moon phase for London](docs/screenshots/sky.png) | ![Learning paths with progress rings](docs/screenshots/learn.png) |
+| **Missions** | **Mobile** |
+| ![Missions timeline from Sputnik 1 onward](docs/screenshots/missions.png) | <img src="docs/screenshots/mobile-landing.png" alt="Landing page on mobile" width="48%"> <img src="docs/screenshots/mobile-explore.png" alt="3D explorer on mobile with bottom tab bar" width="48%"> |
+
 ## Quick start
 
 ```bash
